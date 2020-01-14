@@ -4,12 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "3.0.6",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt": "^0.2.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "mongoose": "^5.8.7"
+    "mongoose": "^5.8.7",
+    "sanitize-html": "^1.20.1"
   },
   "scripts": {
     "start": "node -r esm src",
