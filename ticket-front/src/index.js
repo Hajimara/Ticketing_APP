@@ -1,12 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer, { rootSaga } from "./modules/index";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import createSagaMiddleware from "redux-saga";
+import { HelmetProvider } from "react-helmet-async";
+import { check, tempSetUser } from "./modules/user";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
+);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+function loadUser() {
+  try {
+    const user = localStorage.getItem("user");
+    if (!user) return; // 로그인 상태가 아닐경우 아무것도 하지 않음
+
+    store.dispatch(tempSetUser(user));
+    store.dispatch(check());
+  } catch (error) {
+    console.log("localStorage is not working");
+  }
+}
+
+sagaMiddleware.run(rootSaga);
+loadUser(); // 사가위에 적용 시 사가부분이 제대로 작동하지 않음.
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root")
+);
+
 serviceWorker.unregister();

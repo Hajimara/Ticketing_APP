@@ -4,7 +4,13 @@ import jwt from "jsonwebtoken";
 
 const UserSchema = new Schema({
   accountId: String,
-  hashedPassword: String
+  ticket:[{type: Schema.Types.ObjectId, ref: 'ticket'}],
+  hashedPassword: String,
+  username: String,
+  phoneNumber: String,
+  address: String,
+  insertDate: {type: Date, default: Date.now},
+  deleteDate: {type: Date, sparse: true},
 });
 
 // hash값 적용하는 메서드
