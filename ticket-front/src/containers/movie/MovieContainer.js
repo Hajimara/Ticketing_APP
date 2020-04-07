@@ -18,9 +18,9 @@ const MovieContainer = () => {
 
   useEffect(() => {
     dispatch(movieData());
-    return () => {
+  return () => {
       dispatch(movieInitialize());
-    };
+    };  
   }, [dispatch]);
 
   var arrayJSX = [];

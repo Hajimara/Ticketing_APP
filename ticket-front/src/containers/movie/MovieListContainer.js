@@ -104,9 +104,9 @@ const MovieListContainer = () => {
     if (!loading) {
       dispatch(movieConcatData(listPage + 1));
     }
-    return () => {
+    return ()=>{
       dispatch(movieListInitialize());
-    };
+    }
   }, [dispatch]);
 
   // ------------- infinite scroll---------

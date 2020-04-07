@@ -44,9 +44,7 @@ const movieDataListSaga = createRequestSaga(
   MOVIE_DATA_LIST,
   moviesAPI.nowPlaying
 );
-const movieInitializeSaga = createRequestSaga(MOVIE_INITIALIZE);
 const movieConcatDataSaga = createRequestSaga(MOVIE_CONCAT_DATA,moviesAPI.nowPlaying);
-const movieListInitializeSaga = createRequestSaga(MOVIE_LIST_INITIALIZE);
 const movieDetailDataSaga = createRequestSaga(
   MOVIE_DETAIL_DATA,
   moviesAPI.movieDetail
@@ -55,8 +53,6 @@ const movieDetailDataSaga = createRequestSaga(
 export function* movieSaga() {
   yield takeLatest(MOVIE_DATA, movieDataSaga);
   yield takeLatest(MOVIE_DATA_LIST, movieDataListSaga);
-  yield takeLatest(MOVIE_INITIALIZE, movieInitializeSaga);
-  yield takeLatest(MOVIE_LIST_INITIALIZE, movieListInitializeSaga);
   yield takeLatest(MOVIE_CONCAT_DATA, movieConcatDataSaga);
   yield takeLatest(MOVIE_DETAIL_DATA, movieDetailDataSaga);
 }
@@ -108,15 +104,11 @@ export default handleActions(
       ...state,
       movieDataError: error
     }),
-    [MOVIE_INITIALIZE]: state => ({
-      ...state,
-      movieDetail: null,
-      listPage: 0,
-      more: true
-    }),
+    [MOVIE_INITIALIZE]: state => {},
     [MOVIE_LIST_INITIALIZE]: state => ({
       ...state,
       movieAllData: null,
+      movieDetail: null,
       listData: [],
       listPage: 0,
       more: true

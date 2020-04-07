@@ -40,7 +40,7 @@ const SliderMain = ({ slide, handleSlideClick }) => {
       <SliderMainStyled>
         <ListStyled ref={sliderRef} onClick={index => handleSlideClick(index)}>
           <ImageStyled className="slide__image-wrapper">
-            <Link to="/">
+            <Link to="#">
               <img
                 className="slider__image"
                 src={src}

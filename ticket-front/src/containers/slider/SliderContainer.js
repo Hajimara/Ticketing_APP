@@ -42,8 +42,6 @@ const SliderContainer = () => {
     transition: "1s",
     width: "calc(100% * 4)",
     "margin-left": `${marginLeft()}`
-    // 'overflow':'hidden',
-    // 'position':'relative'
   };
 
   const TemplateOverflow = {
@@ -111,14 +109,6 @@ const SliderContainer = () => {
           handleNextButton={handleNextButton}
         />
 
-        {/* <SliderForm
-          type="previous"
-          handleClick={handlePreviousButton}
-        />
-        <SliderForm
-          type="next"
-          handleClick={handleNextButton}
-        /> */}
       </div>
     </>
   );

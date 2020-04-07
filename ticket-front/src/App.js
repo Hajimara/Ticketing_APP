@@ -26,6 +26,7 @@ function App() {
       <Route component={TicketPage} path="/Ticket"></Route>
       <Route component={MyHomePage} path="/myHome"></Route>
       <Route component={EventPage} path="/event"></Route>
+      <div style={{clear:'both' }}></div>
       <Footer/>
     </>
   );
