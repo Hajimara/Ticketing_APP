@@ -11,6 +11,8 @@ import TicketPage from "./page/TicketPage";
 import MyHomePage from "./page/MyHomePage";
 import EventPage from "./page/EventPage";
 import MovieDetailPage from "./page/MovieDetailPage";
+import Seatpage from "./page/SeatPage";
+import AdminPage from "./page/AdminPage";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
       <Route component={TicketPage} path="/Ticket"></Route>
       <Route component={MyHomePage} path="/myHome"></Route>
       <Route component={EventPage} path="/event"></Route>
+      <Route component={Seatpage} path="/seat"></Route>
+      <Route component={AdminPage} path="/admin"></Route>
       <div style={{clear:'both' }}></div>
       <Footer/>
     </>

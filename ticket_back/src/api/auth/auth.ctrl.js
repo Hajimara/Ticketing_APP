@@ -5,31 +5,26 @@ import User from "../../models/user";
  *  POST /api/auth/register
  */
 export const register = async ctx => {
-  console.log(ctx.request.body);
-
   const schema = Joi.object().keys({
     // 스키마 생성
-    accountId: Joi.string()
-      .alphanum()
-      .min(2)
-      .max(20)
+    accountId: Joi.string().alphanum().min(2).max(20).required(),
+    password: Joi.string()
+      .min(8)
+      .max(20)// 8~20 영문 숫자 특수문자 포함
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/)
       .required(),
-    password: Joi.string().required(),
-    username: Joi.string()
-      .min(2)
-      .max(20)
-      .required(),
+    username: Joi.string().min(2).max(20).required(),
     address: Joi.string()
       .email({ minDomainAtoms: 2, tldWhitelist: ["com", "net"] })
       .required(),
     phoneNumber: Joi.string()
       .regex(/^\d{3}-\d{3,4}-\d{4}$/)
-      .required()
+      .required(),
   });
   // 들어온 파라미터와 스키마 비교
   const result = Joi.validate(ctx.request.body, schema);
   if (result.error) {
-    ctx.state = 400;
+    ctx.status = 400;
     ctx.body = result.error;
     return;
   }
@@ -112,8 +107,10 @@ export const login = async ctx => {
  */
 export const check = async ctx => {
   const { user } = ctx.state;
+  console.log(user);
+  
   if (!user) {
-    ctx.state = 401;
+    ctx.status = 401;
     return;
   }
   ctx.body = user;

@@ -27,11 +27,8 @@ const MovieContainer = () => {
   const movieFormLoop = () => {
     if (movieAllData !== null && !loading) {
       var arrayData = movieAllData.results.slice(0, MOVIE_DATA_LIMITE);
-      console.log(arrayData);
 
       arrayData.forEach((data, index) => {
-        console.log(`${index} - ${data}`);
-        console.log(`${data.title} - ${data.id}`);
 
         arrayJSX.push(
           <MovieSimpleForm

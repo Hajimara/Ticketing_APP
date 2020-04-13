@@ -147,7 +147,7 @@ const MovieListContainer = () => {
 
   return (
     <>
-      <TopLine MainTitle="전체영화" />
+      <TopLine MainTitle="전체영화" line={true}/>
       <div className="MovieList" style={alignListStyle}>
         {MovieListScrollLoop(listData)}
       </div>

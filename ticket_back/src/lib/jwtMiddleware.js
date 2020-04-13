@@ -9,7 +9,8 @@ const jwtMiddleware = async (ctx, next) => {
     ctx.state.user = {
       // 결과를 이후 미들웨어에서 사용할 수 있도록 state에 넣어줌
       _id: decoded._id,
-      accountId: decoded.accountId
+      accountId: decoded.accountId,
+      role:decoded.role
     };
     console.log(decoded);
 

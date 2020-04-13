@@ -51,6 +51,18 @@ const MovieListLi = styled.li`
     props.className.indexOf("on") ? "white" : `${palette.gray[3]}`};
     border-radius: 3px;
 `;
+
+const MovieListLiDisabled = styled.li`
+  list-style: none;
+  padding-bottom: 5px;
+  pointer-events:none; 
+    opacity:0.6;  
+  &:hover {
+  }
+  background-color: ${(props) =>
+    props.className.indexOf("on") ? "white" : `${palette.gray[3]}`};
+    border-radius: 3px;
+`;
 const TheatreList = styled.div`
   display: flex;
   margin: 50px 10px;
@@ -151,24 +163,11 @@ const AreaBox = styled.div`
   display: inline-block;
   direction:rtl;
 `;
-const AreaText= styled.p`
-  text-align:right;
-
-`;
 
 const SubTimeBox = styled.div`
   display: inline-block;
   font-size: 16px;
   font-size: 12px;
-`;
-
-const SeatBox = styled.div`
-  display: inline-block;
-  font-size: 16px;
-  position: relative;
-  left: 60px;
-    top: 15px;
-    font-size: 12px;
 `;
 const TimeDefault = styled.div`
   display:flex;
@@ -186,6 +185,16 @@ const RightData = styled.div`
 display:inline-block;
 text-align:right;
 width: 50%;
+`;
+
+const SeatWrapper = styled.div`
+font-size:12px;
+display:flex;
+
+`;
+const TotalSeat = styled.div``;
+const FinishSeat = styled.div`
+visibility: ${props=>props.value < 1 ? 'hidden': 'visible'};
 `;
 
 // ---- operation -----
@@ -229,7 +238,9 @@ const TicketForm = ({
   selectDateItem,
   selectTheatreItem,
   selectTheatreDetailItem,
+  selectFilterDate,
   selectEndTime,
+  minuteOperation,
   runtime,
   error,
 }) => {
@@ -245,6 +256,7 @@ const TicketForm = ({
                   {!loading &&
                     movieAllData &&
                     movieAllData.results.map((data, index) => {
+                      if(index < 6){
                       return (
                         <>
                           <MovieListLi
@@ -266,6 +278,30 @@ const TicketForm = ({
                           </MovieListLi>
                         </>
                       );
+                    }else{
+                        return (
+                          <>
+                            <MovieListLiDisabled
+                              className={
+                                parseInt(selectMovieItem) === data.id
+                                  ? "on"
+                                  : "off"
+                              }
+                              key={index}
+                              id={data.id}
+                              title={data.title}
+                              data-id={data.id}
+                              onClick={onSelectItem}
+                              readOnly
+                            >
+                              <i class="far fa-times-circle" style={IconStyle}></i>{" "}
+                              {data.title.length > 13
+                                ? `${data.title.substring(0, 10)}...`
+                                : data.title}
+                            </MovieListLiDisabled>
+                          </>
+                        );
+                      }
                     })}
                 </MovieListUl>
               </MovieList>
@@ -357,24 +393,38 @@ const TicketForm = ({
                 {selectMovieItem &&
                 selectDateItem &&
                 selectTheatreItem &&
-                selectTheatreDetailItem ? (
-                  Theatre[selectTheatreItem]["시간"].map((time, index) => {
-                    var t = timeOperation(selectDateItem,time,runtime);
+                selectTheatreDetailItem &&
+                selectFilterDate ? (
+                  selectFilterDate.map((time, index) => {
+                    
+                    var t = timeOperation(time.seat.movieDate,runtime);
                     var hours = t.getHours();
                     var minutes = t.getMinutes();
                     var endTime = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`
-                    console.log(selectEndTime,`${time}~${endTime}`);
-                    
+                    var mt = minuteOperation(time.seat.movieDate)
                     return (
                       <>
-                        <TimeData className={selectEndTime === `${time}~${endTime}` ? 'on' : 'off'} data-time={`${time}~${endTime}`} onClick={onSelectEndTimeItem}>
+                        <TimeData
+                          className={
+                            selectEndTime === `${mt}~${endTime}` ? "on" : "off"
+                          }
+                          data-time={`${mt}~${endTime}`}
+                          data-price={time.price}
+                          onClick={onSelectEndTimeItem}
+                        >
                           <LeftData>
-                          <TimeBox>{time}</TimeBox>
-                          <SubTimeBox>~{endTime}</SubTimeBox>
+                            <TimeBox>{mt}</TimeBox>
+                            <SubTimeBox>~{endTime}</SubTimeBox>
                           </LeftData>
                           <RightData>
-                          <AreaBox>{selectTheatreItem}</AreaBox>
+                            <AreaBox>{selectTheatreItem}</AreaBox>
                           </RightData>
+                          <SeatWrapper>
+                            <FinishSeat value={time.seat.finishSeat}>
+                              {time.seat.finishSeat}
+                            </FinishSeat>
+                            /<TotalSeat>{time.seat.totalSeat}</TotalSeat>
+                          </SeatWrapper>
                         </TimeData>
                       </>
                     );

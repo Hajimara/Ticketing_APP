@@ -8,7 +8,7 @@ import api from "./api";
 import jwtMiddleware from "./lib/jwtMiddleware";
 
 const router = new Router();
-const app = new Koa();
+const app = new Koa(); // 미들웨어 함수를 app에 등록해 줌
 
 const { PORT, MONGO_URI } = process.env;
 

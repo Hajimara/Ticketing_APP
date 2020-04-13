@@ -20,6 +20,4 @@ for(var i=0; i<7; i++) {
     thisWeek[i] = week[resultDay.getDay()];
     thisWeekAll[i] = yyyy + '-' + mm + '-' + dd;
     thisDay[i] = dd;
-}
-
-;
+};

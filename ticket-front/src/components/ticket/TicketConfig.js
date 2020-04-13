@@ -136,6 +136,7 @@ const TicketConfig = ({
   selectTheatreItem,
   selectTheatreDetailItem,
   selectEndTime,
+  handleArrowButton,
   runtime,
   error,
 }) => {
@@ -198,9 +199,7 @@ const TicketConfig = ({
           <PathBox>
             <SeatDefault>좌석선택</SeatDefault>
             <Arrow>
-              {/* 상태값이 null일때 /seat로 이동 시 onClick() 조건문 걸기 
-            initialState값이 null인 상태로 왔을 때 /seat에서 history.push로 팅겨버리기 */}
-              <ArrowLink to="/seat">
+              <ArrowLink onClick={handleArrowButton}>
                 <i class="fas fa-arrow-right"></i>
               </ArrowLink>
             </Arrow>

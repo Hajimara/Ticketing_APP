@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   username: String,
   phoneNumber: String,
   address: String,
+  role: {type:String, default: 'user'},
   insertDate: {type: Date, default: Date.now},
   deleteDate: {type: Date, sparse: true},
 });
@@ -41,7 +42,8 @@ UserSchema.methods.generateToken = function() {
   const token = jwt.sign(
     {
       _id: this.id,
-      accountId: this.accountId
+      accountId: this.accountId,
+      role:this.role
     },
     process.env.JWT_SECRET,
     {
