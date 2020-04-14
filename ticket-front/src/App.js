@@ -13,6 +13,7 @@ import EventPage from "./page/EventPage";
 import MovieDetailPage from "./page/MovieDetailPage";
 import Seatpage from "./page/SeatPage";
 import AdminPage from "./page/AdminPage";
+import PaymentPage from "./page/PaymentPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route component={EventPage} path="/event"></Route>
       <Route component={Seatpage} path="/seat"></Route>
       <Route component={AdminPage} path="/admin"></Route>
+      <Route component={PaymentPage} path="/payment"></Route>
       <div style={{clear:'both' }}></div>
       <Footer/>
     </>

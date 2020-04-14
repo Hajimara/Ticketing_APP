@@ -131,7 +131,7 @@ const ButtonBox = styled.button`
         `}
 `;
 
-const SeatForm = ({ peopleCounter, onSeatSwitch, selectSeat, onClear }) => {
+const SeatForm = ({ onSeatSwitch, selectSeat, onClear }) => {
   const seatArray = { A: 15, B: 15, C: 15, D: 15, E: 15, F: 15, G: 10 };
   /* eslint-disable no-loop-func */
   const seatArrayOperation = (seatArray) => {

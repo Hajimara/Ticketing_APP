@@ -161,8 +161,11 @@ const Payment = styled.div`
   text-align: center;
   left: -1px;
   border-radius: 0 0 10px 10px;
+  &:hover{
+    cursor:pointer;
+  }
 `;
-const SeatSideBar = ({ ticketData,selectSeat, peopleCounter }) => {
+const SeatSideBar = ({ ticketData,selectSeat, peopleCounter,onMovePayment }) => {
   return (
     <>
       {ticketData === null ? (
@@ -220,7 +223,7 @@ const SeatSideBar = ({ ticketData,selectSeat, peopleCounter }) => {
               </LastPrice>
             </Price>
           </PriceBox>
-          <Payment>결제하기</Payment>
+          <Payment onClick={onMovePayment}>결제하기</Payment>
         </SeatSideBarStyled>
       )}
     </>

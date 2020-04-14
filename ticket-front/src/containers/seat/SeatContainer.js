@@ -3,17 +3,22 @@ import SeatForm from "../../components/seat/SeatForm";
 import SeatSideBar from "../../components/seat/SeatSideBar";
 import TopLine from "../../components/common/TopLine";
 import FlexBox from "../../components/common/FlexBox";
-import { withRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { withRouter, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "../../components/common/Modal";
+import { priceCheck } from "../../modules/ticket";
 
-const SeatContainer = ({ history }) => {
+const SeatContainer = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [peopleCounter, setPeopleCounter] = useState(0);
   const [selectSeat, setSelectSeat] = useState([]);
   const [error, setError] = useState(false);
-  const { ticketData, loading } = useSelector(({ ticket, loading }) => ({
+
+  const { ticketData, loading ,priceData } = useSelector(({ ticket, loading }) => ({
     ticketData: ticket.ticketData,
     loading: loading["ticket/undefined"],
+    priceData: ticket.priceData
   }));
 
   const skipFirstRun = useRef(true);
@@ -81,6 +86,23 @@ const SeatContainer = ({ history }) => {
     setSelectSeat([]);
   };
 
+  const onMovePayment = () => {
+    if ([peopleCounter, selectSeat].includes("")) {
+      return;
+    }
+    if (peopleCounter === 0 || selectSeat.includes([])) {
+      return;
+    }
+    var finishPrice = peopleCounter*ticketData.price;
+      dispatch(priceCheck({peopleCounter, selectSeat, finishPrice}))
+  }
+
+  useEffect(()=>{
+    if(priceData){
+      history.push('/payment');
+    }
+  },)
+
 
   return (
     <>
@@ -96,7 +118,6 @@ const SeatContainer = ({ history }) => {
       <FlexBox>
         <SeatForm
           onClear={onClear}
-          peopleCounter={peopleCounter}
           selectSeat={selectSeat}
           onSeatSwitch={onSeatSwitch}
         />
@@ -104,6 +125,7 @@ const SeatContainer = ({ history }) => {
           peopleCounter={peopleCounter}
           selectSeat={selectSeat}
           ticketData={ticketData}
+          onMovePayment={onMovePayment}
         />
         
       </FlexBox>
