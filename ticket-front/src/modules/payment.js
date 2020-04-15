@@ -42,6 +42,7 @@ export default handleActions({
     [PAYMENT_INITIALIZE]: (state) =>({
         ...state,
         payment: null,
+        result: null,
         error: null
     }),
 }, initialState)

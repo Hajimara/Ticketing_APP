@@ -131,7 +131,18 @@ const ButtonBox = styled.button`
         `}
 `;
 
-const SeatForm = ({ onSeatSwitch, selectSeat, onClear }) => {
+const ImpossibleBox = styled.button`
+  width: 23px;
+  height: 23px;
+  padding: 0px 0px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #495057;
+  color:white;
+  user-select:none;
+`;
+
+const SeatForm = ({ onSeatSwitch, selectSeat, onClear, blockSaet }) => {
   const seatArray = { A: 15, B: 15, C: 15, D: 15, E: 15, F: 15, G: 10 };
   /* eslint-disable no-loop-func */
   const seatArrayOperation = (seatArray) => {
@@ -142,16 +153,26 @@ const SeatForm = ({ onSeatSwitch, selectSeat, onClear }) => {
         const element = seatArray[key];
         const d = (element) => {
           for (let index = 0; index < element; index++) {
-            seat.push(
-              <SeatNumber>
-                <ButtonBox
-                  className={selectSeat.includes(key+(index+1)) ? "on" : "off"}
-                  onClick={()=>onSeatSwitch(key+(index+1))}
-                >
-                  {index + 1}
-                </ButtonBox>
-              </SeatNumber>
-            );
+            if(blockSaet && blockSaet.includes(key+(index+1)) ){
+              seat.push(
+                <SeatNumber>
+                  <ImpossibleBox>
+                    X
+                  </ImpossibleBox>
+                </SeatNumber>
+              );
+            }else{
+              seat.push(
+                <SeatNumber>
+                  <ButtonBox
+                    className={selectSeat.includes(key+(index+1)) ? "on" : "off"}
+                    onClick={()=>onSeatSwitch(key+(index+1))}
+                  >
+                    {index + 1}
+                  </ButtonBox>
+                </SeatNumber>
+              );
+            }
           }
         };
         d(element);

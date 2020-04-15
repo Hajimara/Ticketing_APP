@@ -151,6 +151,11 @@ const TimeData = styled.div`
     cursor:pointer;
   }
 `;
+const TimeDataWrapper = styled.div`
+  &:hover{
+    cursor:pointer;
+  }
+`;
 
 const TimeBox = styled.div`
   display: inline-block;
@@ -242,6 +247,7 @@ const TicketForm = ({
   selectEndTime,
   minuteOperation,
   runtime,
+  getItemId,
   error,
 }) => {
   return (
@@ -411,7 +417,7 @@ const TicketForm = ({
                           data-time={`${mt}~${endTime}`}
                           data-price={time.price}
                           onClick={onSelectEndTimeItem}
-                        >
+                        ><TimeDataWrapper onClick={()=>getItemId(time)}>
                           <LeftData>
                             <TimeBox>{mt}</TimeBox>
                             <SubTimeBox>~{endTime}</SubTimeBox>
@@ -425,6 +431,7 @@ const TicketForm = ({
                             </FinishSeat>
                             /<TotalSeat>{time.seat.totalSeat}</TotalSeat>
                           </SeatWrapper>
+                          </TimeDataWrapper>
                         </TimeData>
                       </>
                     );

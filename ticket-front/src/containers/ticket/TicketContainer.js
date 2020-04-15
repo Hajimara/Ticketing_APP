@@ -27,6 +27,7 @@ const TicketConatainer = ({ history }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [runtime, setRuntime] = useState();
   const [price, setPrice] = useState();
+  const [managementItem, setManagementItem] = useState();
 
   const {
     movieAllData,
@@ -108,6 +109,10 @@ const TicketConatainer = ({ history }) => {
     setSelectDateItem();
     setSelectEndTime();
   };
+
+  const getItemId = (item) => {
+    setManagementItem(item);
+  }
 
 
   // ----------------- bug solution -------------------------------
@@ -208,7 +213,7 @@ const TicketConatainer = ({ history }) => {
 
   const onSelectDateItem = (e) => {
     setSelectEndTime();
-    var inputData = e.currentTarget.dataset.date
+    var inputData = e.currentTarget.dataset.date;
     if(selectMovieItem,
       selectTheatreItem,
       selectTheatreDetailItem){
@@ -217,7 +222,7 @@ const TicketConatainer = ({ history }) => {
     setSelectDateItem(inputData);
   };
 
-  const onSelectEndTimeItem = (e) => {
+  const onSelectEndTimeItem = (e,_id) => {
     setSelectEndTime(e.currentTarget.dataset.time);
     setPrice(e.currentTarget.dataset.price);
   };
@@ -244,7 +249,7 @@ const TicketConatainer = ({ history }) => {
     })
     
   }
-
+  
   // next step
   const handleArrowButton = () => {
     if (
@@ -256,7 +261,8 @@ const TicketConatainer = ({ history }) => {
       coverImage &&
       coverTitle &&
       price &&
-      runtime
+      runtime &&
+      managementItem       
     ) {
       dispatch(
         stateCheck({
@@ -269,6 +275,7 @@ const TicketConatainer = ({ history }) => {
           coverTitle,
           price,
           runtime,
+          managementItem
         })
       );
     } else {
@@ -321,6 +328,7 @@ const TicketConatainer = ({ history }) => {
         runtime={runtime}
         movieAllData={movieAllData}
         loading={movieDataLoading}
+        getItemId={getItemId}
         error={movieDataError}
       />
       <TicketConfig

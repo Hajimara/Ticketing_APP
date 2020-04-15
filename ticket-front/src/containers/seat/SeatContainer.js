@@ -12,6 +12,7 @@ const SeatContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [peopleCounter, setPeopleCounter] = useState(0);
+  const [blockSaet , setBlockSeat] = useState();
   const [selectSeat, setSelectSeat] = useState([]);
   const [error, setError] = useState(false);
 
@@ -103,6 +104,13 @@ const SeatContainer = () => {
     }
   },)
 
+  useEffect(()=>{
+    if(ticketData && ticketData.managementItem.seat.hasOwnProperty('seatArray')){
+      const temp = String(ticketData.managementItem.seat.seatArray).replace('undefined,', '');
+      const d = temp.split(',');
+      setBlockSeat(d)
+    }
+  },[ticketData])
 
   return (
     <>
@@ -120,6 +128,8 @@ const SeatContainer = () => {
           onClear={onClear}
           selectSeat={selectSeat}
           onSeatSwitch={onSeatSwitch}
+          ticketData={ticketData}
+          blockSaet={blockSaet}
         />
         <SeatSideBar
           peopleCounter={peopleCounter}

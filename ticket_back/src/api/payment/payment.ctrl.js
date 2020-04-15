@@ -1,8 +1,8 @@
 import Payment from "../../models/payment";
 import Ticket from "../../models/ticket";
+import Management from "../../models/management";
 
 export const paymentConfirm = async (ctx) => {
-  console.log("paymentConfirm gogo");
   if (
     ctx.request.body === null ||
     ctx.request.body === undefined ||
@@ -11,8 +11,7 @@ export const paymentConfirm = async (ctx) => {
     ctx.status = 400;
     return;
   }
-  const { ticketData, priceData, user } = ctx.request.body;
-  console.log(ticketData, priceData, user);
+  const { ticketData, priceData, user, managementItem } = ctx.request.body;
   const { _id: user_id } = user;
   const {
     selectSeat: seat,
@@ -24,8 +23,30 @@ export const paymentConfirm = async (ctx) => {
   const theatre = ticketData.theatre + " " + ticketData.theatreDetail;
   const ticketDate = ticketData.ticketDate + " " + endTime;
   const ticketNumber = user_id + new Date().getTime();
-
+  const { seat: seatItem , _id: managementId, } = ticketData.managementItem;
+  const {totalSeat, finishSeat, movieDate,seatArray} = seatItem;
+  const item = parseInt(finishSeat)-parseInt(peopleNum);
+  let sa = '';
+  if(seatArray===undefined){
+    sa = seat;
+  }else{
+    sa = seatArray+','+seat;
+  }
+    if(item < 0){
+    ctx.status= 400;
+    return;
+  }
+  const query = {
+    seat : {
+      totalSeat,
+      finishSeat: item,
+      seatArray: String(sa),
+      movieDate
+    }
+  }
   try {
+    await Management.findByIdAndUpdate(managementId,query).exec();
+    
     const ticket = new Ticket({
       user_id,
       ticketNumber,
@@ -51,7 +72,7 @@ export const paymentConfirm = async (ctx) => {
       });
       payment.save();
     });
-
+    
     ctx.body = 'success'
   } catch (error) {
     ctx.throw(500, error);

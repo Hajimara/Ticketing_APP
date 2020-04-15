@@ -37,6 +37,7 @@ export const stateCheck = createAction(
            coverTitle: title,
            price,
            runtime,
+           managementItem
          }) => ({
            movieId,
            theatre,
@@ -47,6 +48,7 @@ export const stateCheck = createAction(
            title,
            price,
            runtime,
+           managementItem
          })
        );
        
