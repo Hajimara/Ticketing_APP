@@ -56,7 +56,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({ type, form, onChange,inputPhoneNumber, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormStyled>
@@ -97,6 +97,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             name="phoneNumber"
             placeholder="휴대폰 번호"
             onChange={onChange}
+            onKeyUp={inputPhoneNumber}
             value={form.phoneNumber}
           />
           <StyledInput

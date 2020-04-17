@@ -1,14 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const text = `휴대폰 결제 순서
-1. 우측 하단에 있는 "결제하기" 버튼 클릭해주세요.
-2. 예매내역 확인 후 결제하기 버튼 클릭 시 결제 팝업창이 뜹니다.
-3. 해당 팝업에서 통신사 선택 후 정보를 입력해주세요.
-
-※ 휴대폰 결제 진행시 원할한 사용을 위하여 다음 사항을 꼭 확인하세요.
-* 팝업 차단 설정을 꼭 해제하셔야 합니다. (도구→팝업 차단 끄기)`;
-
 const PaymentFormStyled = styled.div`
   width: 80%;
   margin: 0 auto;

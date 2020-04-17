@@ -13,7 +13,6 @@ export const dataPush = async (ctx) => {
     };
     return;
   }
-  console.log(ctx.request.body);
 
   const management = new Management({
     movieId,
@@ -24,7 +23,6 @@ export const dataPush = async (ctx) => {
       movieDate,
     },
   });
-  console.log(management);
 
   try {
     await management.save();
@@ -40,7 +38,6 @@ export const movieDatePush = async (ctx) => {
     ctx.status = 400;
     return;
   }
-  console.log(ctx.request.body);
 
   try {
     const movieDate = await Management.findByIdAndUpdate(
@@ -62,7 +59,6 @@ export const movieDatePush = async (ctx) => {
 };
 
 export const movieId = async (ctx) => {
-  console.log('movieId gogogo');
   
   const { movieId } = ctx.params;
   var stringMovieId = String(movieId);
@@ -70,9 +66,7 @@ export const movieId = async (ctx) => {
     ctx.status = 400;
     return;
   }
-//   const query = {
-//     ...(movieId ? { movieId: stringMovieId } : {}),
-//   }; 
+
   try {
     const management = await Management.find({ movieId: stringMovieId }).exec();
 

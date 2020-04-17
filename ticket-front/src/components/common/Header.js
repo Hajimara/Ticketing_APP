@@ -156,11 +156,11 @@ const Header = ({ bgColor, user, onLogout,onClick }) => {
         <Wrapper>
           <CategoryWapper>
             <CategoryLink to="/movie" onClick={onClick}>영화</CategoryLink>
-            <CategoryLink to="/ticket">예매</CategoryLink>
-            <CategoryLink to="/event">이벤트</CategoryLink>
+            <CategoryLink to="/ticket" onClick={onClick}>예매</CategoryLink>
+            <CategoryLink to="/event" onClick={onClick}>이벤트</CategoryLink>
           </CategoryWapper>
           <LogoWrapper>
-            <Link className="logo" to="/">
+            <Link className="logo" onClick={onClick} to="/">
               Ticket App
             </Link>
           </LogoWrapper>

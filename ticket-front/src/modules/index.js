@@ -7,6 +7,7 @@ import movie, { movieSaga } from './movie';
 import ticket ,{ticketSaga}from './ticket';
 import admin, {adminSaga} from './admin';
 import payment, { paymentSaga } from "./payment";
+import myHome, { myHomeSaga } from "./myHome";
 
 const rootReducer = combineReducers({
     loading,
@@ -15,11 +16,12 @@ const rootReducer = combineReducers({
     movie,
     ticket,
     admin,
-    payment
+    payment,
+    myHome
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), userSaga(),movieSaga(),adminSaga(),ticketSaga(),paymentSaga()]);
+  yield all([authSaga(), userSaga(),movieSaga(),adminSaga(),ticketSaga(),paymentSaga(),myHomeSaga()]);
 }
 
 export default rootReducer;

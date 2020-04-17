@@ -61,7 +61,7 @@ export const paymentConfirm = async (ctx) => {
     });
     await ticket.save(function (err, item) {
       const log = `영화 ${movieTitle}로 결제 진행 완료되었습니다.`;
-      const status = "SUCCEESS";
+      const status = "SUCCESS";
       const payment = new Payment({
         user_id,
         ticket_id: item._id,
