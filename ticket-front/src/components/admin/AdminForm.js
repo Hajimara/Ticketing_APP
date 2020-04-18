@@ -66,7 +66,6 @@ const AdminForm = ({onSubmit,onChange,movie,form,error}) => {
               <select name='totalSeat' value={form.totalSeat} onChange={onChange}>
               <option></option>
                 <option>100</option>
-                <option>150</option>
               </select>
               </LineWrapper>
               <LineWrapper>
@@ -74,7 +73,6 @@ const AdminForm = ({onSubmit,onChange,movie,form,error}) => {
               <select name='finishSeat' value={form.finishSeat} onChange={onChange}>
               <option></option>
               <option>100</option>
-                <option>150</option>
               </select>
               </LineWrapper>
               <button>확인</button>
